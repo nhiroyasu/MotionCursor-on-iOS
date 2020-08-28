@@ -9,49 +9,27 @@
 import UIKit
 import CoreMotion
 
-class NormalMouseViewController: UIViewController {
+class NormalMouseViewController: UIViewController, MotionControllable {
     
-    let bm = BluetoothManager()
-    let motionManager = CMMotionManager()
+    let bluetoothManager = BluetoothManager()
+    var motionManager = CMMotionManager()
+    lazy var motionControl: MotionControl = MotionControl(controllable: self)
     let rate: Double = 500.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.motionListeningSetup()
+        self.motionControl.motionListeningSetup()
     }
     
     
-    // MARK: - Motion Contents
-    func motionListeningSetup() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.1
-            motionManager.startDeviceMotionUpdates(to: .main) { (motionOptional, error) in
-                if let e = error {
-                    print("error on [Start DeviceMotionUpdates]", e)
-                    return
-                }
-                
-                guard let motion = motionOptional else {
-                    print("motion is null")
-                    return
-                }
-                
-                self.onMotionData(deviceMotion: motion)
-            }
-            
-        } else {
-            print("this device is not motion active")
-        }
-    }
-    
-    func onMotionData(deviceMotion:CMDeviceMotion) {
+    func onMotion(deviceMotion:CMDeviceMotion) {
         do {
             let mouseInfoDaeta = try encodeMouseInfo(mouseInfo: MouseInfo(type: MOUSE_TYPE.NORMAL.rawValue,
                                                                           acc: AccParam(x: deviceMotion.userAcceleration.x * rate,
                                                                                         y: deviceMotion.userAcceleration.y * rate,
                                                                                         z: deviceMotion.userAcceleration.z * rate), atti: nil))
-            bm.notify(data: mouseInfoDaeta)
+            bluetoothManager.notifyMotionInfo(data: mouseInfoDaeta)
         } catch {
             print("encode error")
         }

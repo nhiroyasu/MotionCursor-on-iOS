@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FC8F3A424F8BEFA0020D9AB /* MotionControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8F3A324F8BEFA0020D9AB /* MotionControllable.swift */; };
+		4FC8F3A924F8C0EB0020D9AB /* MotionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8F3A824F8C0EB0020D9AB /* MotionControl.swift */; };
 		4FE7CBB824F50FD1002BE674 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE7CBB724F50FD1002BE674 /* AppDelegate.swift */; };
 		4FE7CBBA24F50FD1002BE674 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE7CBB924F50FD1002BE674 /* SceneDelegate.swift */; };
 		4FE7CBBC24F50FD1002BE674 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE7CBBB24F50FD1002BE674 /* ViewController.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FC8F3A324F8BEFA0020D9AB /* MotionControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionControllable.swift; sourceTree = "<group>"; };
+		4FC8F3A824F8C0EB0020D9AB /* MotionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionControl.swift; sourceTree = "<group>"; };
 		4FE7CBB424F50FD1002BE674 /* MotionCursor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotionCursor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE7CBB724F50FD1002BE674 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FE7CBB924F50FD1002BE674 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +90,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4FC8F3A524F8BF040020D9AB /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				4FC8F3A324F8BEFA0020D9AB /* MotionControllable.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		4FC8F3A624F8C07A0020D9AB /* Motion */ = {
+			isa = PBXGroup;
+			children = (
+				4FC8F3A524F8BF040020D9AB /* Interfaces */,
+				4FE7CBF724F519B3002BE674 /* MouseInfo.swift */,
+				4FC8F3A824F8C0EB0020D9AB /* MotionControl.swift */,
+			);
+			path = Motion;
+			sourceTree = "<group>";
+		};
 		4FE7CBAB24F50FD1002BE674 = {
 			isa = PBXGroup;
 			children = (
@@ -110,11 +132,11 @@
 			isa = PBXGroup;
 			children = (
 				4FE7CBED24F5115F002BE674 /* ChildViewControllers */,
+				4FC8F3A624F8C07A0020D9AB /* Motion */,
 				4FE7CBB724F50FD1002BE674 /* AppDelegate.swift */,
 				4FE7CBB924F50FD1002BE674 /* SceneDelegate.swift */,
 				4FE7CBBB24F50FD1002BE674 /* ViewController.swift */,
 				4FE7CBEA24F51103002BE674 /* BluetoothManager.swift */,
-				4FE7CBF724F519B3002BE674 /* MouseInfo.swift */,
 				4FE7CBBD24F50FD1002BE674 /* Main.storyboard */,
 				4FE7CBC324F50FD3002BE674 /* Assets.xcassets */,
 				4FE7CBC524F50FD3002BE674 /* LaunchScreen.storyboard */,
@@ -298,6 +320,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FC8F3A424F8BEFA0020D9AB /* MotionControllable.swift in Sources */,
+				4FC8F3A924F8C0EB0020D9AB /* MotionControl.swift in Sources */,
 				4FE7CBBC24F50FD1002BE674 /* ViewController.swift in Sources */,
 				4FE7CBF324F51334002BE674 /* ThreeDMouseViewController.swift in Sources */,
 				4FE7CBEF24F511A5002BE674 /* NormalMouseViewController.swift in Sources */,
