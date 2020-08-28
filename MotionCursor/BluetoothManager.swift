@@ -2,12 +2,12 @@ import Foundation
 import CoreBluetooth
 
 let serviceUUID = CBUUID(string: "d84315a7-3e95-4da6-8110-c28285cd8e2b")
-let characreristicParamUUID = CBUUID(string: "c7e75734-e6ab-11ea-adc1-0242ac120002")
+let motionInfoCharacteristicUUID = CBUUID(string: "c7e75734-e6ab-11ea-adc1-0242ac120002")
 
 class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
     
     let characteristic = CBMutableCharacteristic(
-        type: characreristicParamUUID,
+        type: motionInfoCharacteristicUUID,
         properties: CBCharacteristicProperties.notify.union(.read).union(.write),
         value: nil,
         permissions: CBAttributePermissions.readable.union(.writeable))
