@@ -50,7 +50,7 @@ class NormalMouseViewController: UIViewController {
             let mouseInfoDaeta = try encodeMouseInfo(mouseInfo: MouseInfo(type: MOUSE_TYPE.NORMAL.rawValue,
                                                                           acc: AccParam(x: deviceMotion.userAcceleration.x * rate,
                                                                                         y: deviceMotion.userAcceleration.y * rate,
-                                                                                        z: deviceMotion.userAcceleration.z * rate)))
+                                                                                        z: deviceMotion.userAcceleration.z * rate), atti: nil))
             bm.notify(data: mouseInfoDaeta)
         } catch {
             print("encode error")

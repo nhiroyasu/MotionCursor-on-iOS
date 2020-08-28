@@ -2,13 +2,20 @@ import Foundation
 
 struct MouseInfo: Codable {
     let type: String
-    let acc: AccParam
+    let acc: AccParam?
+    let atti: AttiParam?
 }
 
 struct AccParam: Codable {
     let x: Double
     let y: Double
     let z: Double
+}
+
+struct AttiParam: Codable {
+    let pitch: Double
+    let yaw: Double
+    let roll: Double
 }
 
 enum MOUSE_TYPE: String {

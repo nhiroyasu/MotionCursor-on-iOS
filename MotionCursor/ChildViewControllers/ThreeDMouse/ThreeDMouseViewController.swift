@@ -7,24 +7,55 @@
 //
 
 import UIKit
+import CoreMotion
 
 class ThreeDMouseViewController: UIViewController {
 
+    let bm = BluetoothManager()
+    let motionManager = CMMotionManager()
+    let pitchRate: Double = 0.5
+    let yawRate: Double = 0.5
+    let FPS: Double = 30
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.motionListeningSetup()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Motion Contents
+    func motionListeningSetup() {
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 1.0 / self.FPS
+            motionManager.startDeviceMotionUpdates(to: .main) { (motionOptional, error) in
+                if let e = error {
+                    print("error on [Start DeviceMotionUpdates]", e)
+                    return
+                }
+                
+                guard let motion = motionOptional else {
+                    print("motion is null")
+                    return
+                }
+                
+                self.onMotionData(deviceMotion: motion)
+            }
+            
+        } else {
+            print("this device is not motion active")
+        }
     }
-    */
-
+    
+    func onMotionData(deviceMotion:CMDeviceMotion) {
+        do {
+            let mouseInfoDaeta = try encodeMouseInfo(mouseInfo: MouseInfo(type: MOUSE_TYPE.ThreeD.rawValue, acc: nil,
+                                                                          atti: AttiParam(pitch: deviceMotion.attitude.pitch/pitchRate,
+                                                                                          yaw: deviceMotion.attitude.yaw/yawRate,
+                                                                                          roll: deviceMotion.attitude.roll)))
+            bm.notify(data: mouseInfoDaeta)
+        } catch {
+            print("encode error")
+        }
+    }
 }
