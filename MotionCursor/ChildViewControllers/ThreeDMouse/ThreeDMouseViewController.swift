@@ -9,12 +9,16 @@
 import UIKit
 import CoreMotion
 
-class ThreeDMouseViewController: UIViewController, MotionControllable {
-
+class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadViewListener {
+    // MARK: - View Contents ...
+    @IBOutlet weak var trackpadView: TrackpadView!
+    
+    // MARK: - Manager etc ...
     let bluetoothManager = BluetoothManager()
     var motionManager = CMMotionManager()
     lazy var motionControl = MotionControl(controllable: self)
     
+    // MARK: - Propaty
     let pitchRate: Double = 0.5
     let yawRate: Double = 0.5
     let FPS: Double = 30
@@ -23,24 +27,39 @@ class ThreeDMouseViewController: UIViewController, MotionControllable {
         super.viewDidLoad()
 
         self.motionControl.motionListeningSetup()
+        self.trackpadView.setListener(listener: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        
+        // TODO: Bluetoothの切断処理
     }
     
     func onMotion(deviceMotion: CMDeviceMotion) {
         do {
-            let mouseInfoDaeta = try encodeMouseInfo(mouseInfo: MouseInfo(type: MOUSE_TYPE.ThreeD.rawValue, acc: nil,
+            let mouseInfoData = try encodeMouseInfo(mouseInfo: MouseInfo(type: MOUSE_TYPE.ThreeD.rawValue, acc: nil,
                                                                           atti: AttiParam(pitch: deviceMotion.attitude.pitch/pitchRate,
                                                                                           yaw: deviceMotion.attitude.yaw/yawRate,
                                                                                           roll: deviceMotion.attitude.roll)))
-            bluetoothManager.notifyMotionInfo(data: mouseInfoDaeta)
+            self.bluetoothManager.notifyMotionInfo(data: mouseInfoData)
         } catch {
             print("encode error")
         }
     }
 
+    
+    func leftClickStart() {}
+    
+    func leftClickEnd() {
+        do {
+            let mouseAction = MouseAction(type: .LEFT_CLICK, action: .DOWN)
+            let mouseActionData = try encodeMouseAction(mouseAction: mouseAction)
+            self.bluetoothManager.notifyMotionAction(data: mouseActionData)
+        } catch {
+            print("encode error")
+        }
+    }
+    
+    func leftClickMove() {}
 }

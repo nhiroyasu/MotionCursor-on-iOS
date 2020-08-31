@@ -80,10 +80,25 @@
                     <view key="view" contentMode="scaleToFill" id="hSC-aJ-xbr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esD-Cn-7cO" customClass="TrackpadView" customModule="MotionCursor" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="esD-Cn-7cO" firstAttribute="top" secondItem="Y40-VL-SEI" secondAttribute="top" id="LhJ-fv-fNe"/>
+                            <constraint firstItem="esD-Cn-7cO" firstAttribute="leading" secondItem="Y40-VL-SEI" secondAttribute="leading" id="RII-OK-h56"/>
+                            <constraint firstItem="Y40-VL-SEI" firstAttribute="bottom" secondItem="esD-Cn-7cO" secondAttribute="bottom" id="byA-l1-9ii"/>
+                            <constraint firstItem="Y40-VL-SEI" firstAttribute="trailing" secondItem="esD-Cn-7cO" secondAttribute="trailing" id="r2L-6E-G9g"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Y40-VL-SEI"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ltd-i0-GcR"/>
+                    <connections>
+                        <outlet property="trackpadView" destination="esD-Cn-7cO" id="eCP-rP-0Xk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcG-fg-ann" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

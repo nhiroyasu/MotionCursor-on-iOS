@@ -2,12 +2,12 @@ import Foundation
 import CoreBluetooth
 
 let serviceUUID = CBUUID(string: "d84315a7-3e95-4da6-8110-c28285cd8e2b")
-let motionInfoCharacteristicUUID = CBUUID(string: "c7e75734-e6ab-11ea-adc1-0242ac120002")
+let mouseInfoCharacteristicUUID = CBUUID(string: "c7e75734-e6ab-11ea-adc1-0242ac120002")
 let motionActionCharacteristicUUID = CBUUID(string: "b8a71aee-4e1c-4f4f-91da-4e10ce658cb0")
 
 class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
     
-    let motionInfoCharacteristic = CBMutableCharacteristic(type: motionInfoCharacteristicUUID,
+    let motionInfoCharacteristic = CBMutableCharacteristic(type: mouseInfoCharacteristicUUID,
                                                            properties: .notify,
                                                            value: nil,
                                                            permissions: CBAttributePermissions.readable.union(.writeable))
@@ -75,6 +75,10 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
             peripheralManager?.respond(to: req, withResult: CBATTError.success)
         }
     }
+    
+    
+    
+    // MARK: - Bluetooth Actions
     
     func advertisement() {
         let advertisementData = [
