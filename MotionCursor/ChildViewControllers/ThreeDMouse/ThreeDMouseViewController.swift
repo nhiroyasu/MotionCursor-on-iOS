@@ -21,7 +21,6 @@ class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadV
     // MARK: - Propaty
     let pitchRate: Double = 0.5
     let yawRate: Double = 0.5
-    let FPS: Double = 30
     
     override func viewDidLoad() {
         super.viewDidLoad()

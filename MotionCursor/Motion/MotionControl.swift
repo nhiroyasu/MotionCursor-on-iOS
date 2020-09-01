@@ -12,6 +12,7 @@ import CoreMotion
 class MotionControl {
     
     let controllable: MotionControllable
+    let FPS: Double = 30
     
     init(controllable: MotionControllable) {
         self.controllable = controllable
@@ -20,8 +21,8 @@ class MotionControl {
     // MARK: - Motion Contents
     func motionListeningSetup() {
         if self.controllable.motionManager.isDeviceMotionAvailable {
-            self.controllable.motionManager.deviceMotionUpdateInterval = 0.1
-            self.controllable.motionManager.startDeviceMotionUpdates(to: .main) { (motionOptional, error) in
+            self.controllable.motionManager.deviceMotionUpdateInterval = 1.0 / FPS
+            self.controllable.motionManager.startDeviceMotionUpdates(to: .init()) { (motionOptional, error) in
                 if let e = error {
                     print("error on [Start DeviceMotionUpdates]", e)
                     return

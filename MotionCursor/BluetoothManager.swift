@@ -21,7 +21,7 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
     
     override init() {
         super.init()
-        self.peripheralManager = CBPeripheralManager.init(delegate: self, queue: nil)
+        self.peripheralManager = CBPeripheralManager.init(delegate: self, queue: .global())
     }
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
@@ -108,4 +108,7 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
         }
     }
     
+    func disconnect() {
+        self.peripheralManager?.removeAllServices()
+    }
 }
