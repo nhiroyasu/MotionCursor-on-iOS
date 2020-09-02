@@ -6,6 +6,7 @@ let mouseInfoCharacteristicUUID = CBUUID(string: "c7e75734-e6ab-11ea-adc1-0242ac
 let motionActionCharacteristicUUID = CBUUID(string: "b8a71aee-4e1c-4f4f-91da-4e10ce658cb0")
 
 class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
+    static let shared = BluetoothManager()
     
     let motionInfoCharacteristic = CBMutableCharacteristic(type: mouseInfoCharacteristicUUID,
                                                            properties: .notify,
@@ -30,7 +31,10 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
             print("POWER ON")
             self.service.characteristics = [motionInfoCharacteristic, motionActionCharacteristic]
             self.peripheralManager?.add(service)
-            self.advertisement()
+            if (!self.checkCharaConnection()) {
+                // NOTE: 現在接続されていない時のみ宣伝する
+                self.advertisement()
+            }
 
         case .poweredOff:
             print("POWER OFF")
@@ -60,6 +64,7 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("Subscribe to", characteristic.uuid)
         self.central = central
+        self.stopAdvertisement()
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
@@ -87,6 +92,11 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
         peripheralManager?.startAdvertising(advertisementData)
     }
     
+    func stopAdvertisement() {
+        print(self.checkCharaConnection())
+        peripheralManager?.stopAdvertising()
+    }
+    
     
     func notifyMotionInfo(data: Data) {
         if (self.central != nil) {
@@ -110,5 +120,18 @@ class BluetoothManager: NSObject, CBPeripheralManagerDelegate {
     
     func disconnect() {
         self.peripheralManager?.removeAllServices()
+    }
+    
+    
+    // MARK: - Bluetooth Checks
+    
+    /**
+     * 現在、characteristicが購読されている状態であるか
+     * @return: true -> 購読中、false -> どれかが購読されていない
+     */
+    func checkCharaConnection() -> Bool {
+        return
+            self.motionInfoCharacteristic.subscribedCentrals?.count ?? 0 != 0 &&
+            self.motionActionCharacteristic.subscribedCentrals?.count ?? 0 != 0
     }
 }

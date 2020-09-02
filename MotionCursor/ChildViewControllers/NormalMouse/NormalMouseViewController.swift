@@ -19,7 +19,7 @@ class NormalMouseViewController: UIViewController, MotionControllable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.motionControl.motionListeningSetup()
+        self.motionControl.startListeningMotion()
     }
     
     

@@ -12,17 +12,19 @@ import CoreMotion
 class MotionControl {
     
     let controllable: MotionControllable
+    let queue: OperationQueue
     let FPS: Double = 30
     
     init(controllable: MotionControllable) {
         self.controllable = controllable
+        self.queue = OperationQueue.init()
     }
     
     // MARK: - Motion Contents
-    func motionListeningSetup() {
+    func startListeningMotion() {
         if self.controllable.motionManager.isDeviceMotionAvailable {
             self.controllable.motionManager.deviceMotionUpdateInterval = 1.0 / FPS
-            self.controllable.motionManager.startDeviceMotionUpdates(to: .init()) { (motionOptional, error) in
+            self.controllable.motionManager.startDeviceMotionUpdates(to: queue) { (motionOptional, error) in
                 if let e = error {
                     print("error on [Start DeviceMotionUpdates]", e)
                     return
@@ -39,5 +41,9 @@ class MotionControl {
         } else {
             print("this device is not motion active")
         }
+    }
+    
+    func stopListeningMotion() {
+        self.controllable.motionManager.stopDeviceMotionUpdates()
     }
 }
