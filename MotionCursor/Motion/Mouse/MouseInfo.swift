@@ -21,6 +21,7 @@ struct AttiParam: Codable {
 enum MOUSE_TYPE: String {
     case NORMAL = "normal"
     case ThreeD = "3d"
+    case ThreeD_GAME = "3d_game"
 }
 
 func encodeMouseInfo(mouseInfo: MouseInfo) throws -> Data {

@@ -41,8 +41,8 @@ class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadV
     func onMotion(deviceMotion: CMDeviceMotion) {
         do {
             let mouseInfoData = try encodeMouseInfo(mouseInfo: MouseInfo(type: MOUSE_TYPE.ThreeD.rawValue, acc: nil,
-                                                                          atti: AttiParam(pitch: deviceMotion.attitude.pitch/pitchRate,
-                                                                                          yaw: deviceMotion.attitude.yaw/yawRate,
+                                                                          atti: AttiParam(pitch: deviceMotion.attitude.pitch*pitchRate,
+                                                                                          yaw: deviceMotion.attitude.yaw*yawRate,
                                                                                           roll: deviceMotion.attitude.roll)))
             self.bluetoothManager.notifyMotionInfo(data: mouseInfoData)
         } catch {
