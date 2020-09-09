@@ -51,11 +51,19 @@ class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadV
     }
 
     
-    func leftClickStart() {}
+    func leftClickStart() {
+        do {
+            let mouseAction = MouseAction(type: .LEFT_CLICK, action: .DOWN)
+            let mouseActionData = try encodeMouseAction(mouseAction: mouseAction)
+            self.bluetoothManager.notifyMotionAction(data: mouseActionData)
+        } catch {
+            print("encode error")
+        }
+    }
     
     func leftClickEnd() {
         do {
-            let mouseAction = MouseAction(type: .LEFT_CLICK, action: .DOWN)
+            let mouseAction = MouseAction(type: .LEFT_CLICK, action: .UP)
             let mouseActionData = try encodeMouseAction(mouseAction: mouseAction)
             self.bluetoothManager.notifyMotionAction(data: mouseActionData)
         } catch {
