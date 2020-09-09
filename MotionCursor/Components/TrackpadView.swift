@@ -20,6 +20,7 @@ class TrackpadView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.backgroundColor = UIColor(hex: 0xf0f0f0)
+        self.listener?.leftClickStart()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
