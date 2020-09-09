@@ -35,7 +35,6 @@ class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadV
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        // TODO: Bluetoothの切断処理
         self.motionControl.stopListeningMotion()
     }
     
