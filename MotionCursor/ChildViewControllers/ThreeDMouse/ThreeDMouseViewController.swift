@@ -14,7 +14,7 @@ class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadV
     @IBOutlet weak var trackpadView: TrackpadView!
     
     // MARK: - Manager etc ...
-    let bluetoothManager = BluetoothManager()
+    let bluetoothManager = BluetoothManager.shared
     var motionManager = CMMotionManager()
     lazy var motionControl = MotionControl(controllable: self)
     
@@ -25,14 +25,17 @@ class ThreeDMouseViewController: UIViewController, MotionControllable, TrackpadV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.motionControl.motionListeningSetup()
         self.trackpadView.setListener(listener: self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.motionControl.startListeningMotion()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        // TODO: Bluetoothの切断処理
+        self.motionControl.stopListeningMotion()
     }
     
     func onMotion(deviceMotion: CMDeviceMotion) {
